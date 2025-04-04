@@ -117,7 +117,7 @@ if submitted:
 
     # Display result
     st.subheader("Prediction Result:")
-    if new_prediction[0] == 1:
+    if new_prediction[0] == 'Y':
         st.write("You are eligible for the loan!")
     else:
         st.write("Sorry, you are not eligible for the loan.")
