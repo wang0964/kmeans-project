@@ -1,25 +1,20 @@
-
 import pandas as pd
 
 def load_and_preprocess_data(data_path):
-    
-    # Import the data from 'credit.csv'
+    df = pd.read_csv('data/raw/heart_2020_cleaned.csv')
     df = pd.read_csv(data_path)
 
-    # Impute all missing values in all the features
-    df['Gender'].fillna('Male', inplace=True)
-    df['Married'].fillna(df['Married'].mode()[0], inplace=True)
-    df['Dependents'].fillna(df['Dependents'].mode()[0], inplace=True)
-    df['Education'].fillna(df['Education'].mode()[0], inplace=True)
-    df['Self_Employed'].fillna(df['Self_Employed'].mode()[0], inplace=True)
-    df['ApplicantIncome'].fillna(df['ApplicantIncome'].median(), inplace=True)
-    df['CoapplicantIncome'].fillna(df['CoapplicantIncome'].median(), inplace=True)
-    df['LoanAmount'].fillna(df['LoanAmount'].median(), inplace=True)
-    df['Loan_Amount_Term'].fillna(df['Loan_Amount_Term'].mode()[0], inplace=True)
-    df['Credit_History'].fillna(df['Credit_History'].mode()[0], inplace=True)
-    df['Property_Area'].fillna(df['Property_Area'].mode()[0], inplace=True)
+    df['HeartDisease'] = df['HeartDisease'].replace({'Yes':1, 'No':0})
+    df['Smoking'] = df['Smoking'].replace({'Yes': 1, 'No': 0})
+    df['AlcoholDrinking'] = df['AlcoholDrinking'].replace({'Yes': 1, 'No': 0})
+    df['Stroke'] = df['Stroke'].replace({'Yes': 1, 'No': 0})
 
-    # Drop 'Loan_ID' variable from the data
-    df = df.drop('Loan_ID', axis=1)
+    df['DiffWalking'] = df['DiffWalking'].replace({'Yes': 1, 'No': 0})
+    df['Sex'] = df['Sex'].replace({'Male': 1, 'Female': 0})
 
+    df['PhysicalActivity'] = df['PhysicalActivity'].replace({'Yes': 1, 'No': 0})
+    df['Asthma'] = df['Asthma'].replace({'Yes': 1, 'No': 0})
+    df['KidneyDisease'] = df['KidneyDisease'].replace({'Yes': 1, 'No': 0})
+    df['SkinCancer'] = df['SkinCancer'].replace({'Yes': 1, 'No': 0})
+    
     return df

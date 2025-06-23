@@ -1,27 +1,22 @@
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 import pickle
 
+def train_model(x,y):
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=8000, stratify=y)
 
-# Function to train the model
-def train_RFmodel(X, y):
-    # Splitting the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=8000, stratify=y_train)
 
-    # Scale the data using MinMaxScaler
-    scaler = MinMaxScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)
+    from sklearn.ensemble import RandomForestClassifier
+    rfmodel = RandomForestClassifier(
+                n_estimators=200,
+                max_depth=12,                
+                min_samples_leaf=10,         
+                class_weight='balanced',
+                random_state=42
+            ).fit(x_train, y_train)
 
-
-    # Train the logistic regression model
-    model = RandomForestClassifier(n_estimators=2,
-                                    max_depth=2,
-                                    max_features=8).fit(X_train_scaled, y_train)
-    
-    # Save the trained model
-    with open('models/RFmodel.pkl', 'wb') as f:
-        pickle.dump(model, f)
-
-    return model, X_test_scaled, y_test
+    with open('models/model.pkl','wb') as f:
+        pickle.dump(rfmodel,f)
+        
+    return rfmodel,x_test,y_test
