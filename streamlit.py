@@ -7,7 +7,7 @@ import pickle
 import streamlit as st
 
 # Set the page title and description
-st.title("Credit Loan Eligibility Predictor")
+st.title("Heart Disease Risk Predictor")
 st.write("""
             This application predicts whether someone may have heart disease.
         """)

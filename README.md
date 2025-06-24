@@ -1,61 +1,109 @@
-# credit_eligibility_application
-This app has been built using Streamlit and deployed with Streamlit community cloud
 
-[Visit the app here](https://loan-application-app.streamlit.app/)
+# heart_disease_predictor
 
-password - streamlit
+This app has been built using **Streamlit** and deployed with **Streamlit Community Cloud**.
 
-This application predicts whether someone is eligible for a loan based on inputs derived from the German Credit Risk dataset. The model aims to help users assess loan eligibility by leveraging machine learning predictions.
+[Visit the app here](https://assignment-regression.streamlit.app/)  
+*(No password required)*
+
+This application predicts whether someone is at risk of **heart disease** based on their health and lifestyle information. The model provides a simple user interface to help visualize risk using machine learning predictions.
+
+---
 
 ## Features
-- User-friendly interface powered by Streamlit.
-- Input form to enter details such as credit history, loan amount, income, and other relevant factors.
-- Real-time prediction of loan eligibility based on the trained model.
-- Accessible via Streamlit Community Cloud.
+
+- Easy-to-use form powered by Streamlit for collecting user health data
+- Real-time prediction of heart disease risk based on 2020 CDC dataset
+- Converts categorical variables to dummy variables before prediction
+- Deployed to Streamlit Cloud, accessible via any web browser
+
+---
 
 ## Dataset
-The application is trained on the **German Credit Risk dataset**, a widely used dataset for evaluating creditworthiness. It includes features like:
-- Age
-- Job
-- Housing status
-- Credit amount
-- Duration of credit
-- Purpose of loan
-- And other factors influencing credit risk.
+
+The model was trained on the **Heart Disease – CDC 2020 Cleaned Dataset**. This dataset includes information about:
+
+- BMI
+- Smoking and Alcohol Consumption
+- Stroke history
+- Physical and Mental Health status
+- Age Category and Sex
+- Sleep time and General Health
+- Diabetes status
+- Physical activity
+- Race and other lifestyle indicators
+
+---
 
 ## Technologies Used
-- **Streamlit**: For building the web application.
-- **Scikit-learn**: For model training and evaluation.
-- **Pandas** and **NumPy**: For data preprocessing and manipulation.
-- **Matplotlib** and **Seaborn**: For exploratory data analysis and visualization (if applicable).
+
+- **Streamlit** – To build the frontend web application
+- **Scikit-learn** – For training and evaluating the machine learning model
+- **Pandas** – For data manipulation and preprocessing
+- **Matplotlib** & **Seaborn** – For exploratory analysis and optional visualization
+
+---
 
 ## Model
-The predictive model is trained using the German Credit Risk dataset. It applies preprocessing steps like encoding categorical variables and scaling numerical features. The classification model used may include algorithms such as Logistic Regression, Random Forest, or XGBoost.
+
+The application uses a trained **Random Forest Classifier**. Key preprocessing steps include:
+
+- Binary encoding (e.g., Yes/No → 1/0)
+- One-hot encoding for multi-class categorical variables such as `Race`, `AgeCategory`, `GenHealth`, `Diabetic`
+- Feature ordering matched with the trained model
+
+---
 
 ## Future Enhancements
-* Adding support for multiple datasets.
-* Incorporating explainability tools like SHAP to provide insights into predictions.
-* Adding visualizations to better represent user input and model predictions.
+
+- Add SHAP-based explainability for individual predictions
+- Visual summary of input features before prediction
+- Compare results across different models (e.g., Logistic Regression, XGBoost)
+- Allow users to upload batch CSV files for bulk prediction
+
+---
 
 ## Installation (for local deployment)
-If you want to run the application locally, follow these steps:
 
-1. Clone the repository:
+To run the app locally, follow these steps:
+
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/credit_eligibility_application.git
-   cd credit_eligibility_application
+   git clone https://github.com/wang0964/regression_model.git
+   cd regression_model
+   ```
 
-2. Create and activate a virtual environment:
+2. **Create and activate a virtual environment**
    ```bash
    python -m venv env
-   source env/bin/activate  # On Windows, use `env\\Scripts\\activate`
+   source env/bin/activate        # On Windows: env\Scripts\activate
+   ```
 
-3. Install dependencies:
+3. **Install required packages**
    ```bash
    pip install -r requirements.txt
+   ```
 
-4. Run the Streamlit application:
+4. **Run the Streamlit application**
    ```bash
-   streamlit run app.py
+   streamlit run streamlit.py
+   ```
 
-#### Thank you for using the Credit Eligibility Application! Feel free to share your feedback.
+---
+
+## Dependencies
+
+List of required Python libraries:
+
+```txt
+streamlit==1.46.0
+pandas==2.1.4
+scikit-learn==1.7.0
+matplotlib==3.8.0
+seaborn==0.12.2
+```
+
+---
+
+#### Thank you for using the Heart Disease Predictor!  
+This project is used for CST2216 Individual Term Project.
