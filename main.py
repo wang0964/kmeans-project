@@ -1,28 +1,18 @@
 
 import warnings
 warnings.filterwarnings("ignore")
-from src.models.train_model import train_model
-from src.models.predict_model import evaluate_model
+
 from src.data.make_dataset import load_and_preprocess_data
-from src.features.build_features import create_dummy_vars
+from src.models.train_model import train_kmeans_model
+from src.models.predict_model import evaluate_model
 
-# Set the path to the raw dataset
-data_path = 'data/raw/heart_2020_cleaned.csv'
+data_path=r'data/raw/DiamondsPrices.csv'
+df=load_and_preprocess_data(data_path)
 
-# Load and preprocess the raw dataset 
-df = load_and_preprocess_data(data_path)
+kmodel,x_train_scaled, x_dev_scaled, x_test_scaled=train_kmeans_model(df)
+train_score,dev_score,test_score=evaluate_model(kmodel,x_train_scaled, x_dev_scaled, x_test_scaled)
 
-# Perform one-hot encoding on categorical features and split into x (features) and y (target)
-x, y = create_dummy_vars(df)
 
-# Train the model and split out the test set for evaluation
-model, x_test, y_test = train_model(x, y)
-
-# Evaluate the trained model using the test set
-recall, f1, precision, confusion_mat = evaluate_model(model, x_test, y_test)
-
-# Print evaluation results
-print(f'Confusion Matrix:\n{confusion_mat}')
-print(f'\nF1: {f1:.4f}')
-print(f'Recall: {recall:.4f}')
-print(f'Precision: {precision:.4f}')
+print(f"Silhouette Score (Train): {train_score:.4f}")
+print(f"Silhouette Score (Dev):   {dev_score:.4f}")
+print(f"Silhouette Score (Test):  {test_score:.4f}")

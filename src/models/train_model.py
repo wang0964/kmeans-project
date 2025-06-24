@@ -1,22 +1,20 @@
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.cluster import KMeans
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 import pickle
 
-def train_model(x,y):
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=8000, stratify=y)
+def train_kmeans_model(df):
+    x_temp, x_test = train_test_split(df, test_size=8000, random_state=42)
+    x_train, x_dev = train_test_split(x_temp, test_size=8000, random_state=42)
 
-    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=8000, stratify=y_train)
+    scaler = StandardScaler()
+    x_train_scaled = scaler.fit_transform(x_train)
+    x_dev_scaled = scaler.transform(x_dev)
+    x_test_scaled = scaler.transform(x_test)
 
-    from sklearn.ensemble import RandomForestClassifier
-    rfmodel = RandomForestClassifier(
-                n_estimators=200,
-                max_depth=12,                
-                min_samples_leaf=10,         
-                class_weight='balanced',
-                random_state=42
-            ).fit(x_train, y_train)
-
+    kmeans = KMeans(n_clusters=3, random_state=42).fit(x_train_scaled)
+    
     with open('models/model.pkl','wb') as f:
-        pickle.dump(rfmodel,f)
+        pickle.dump(kmeans,f)
         
-    return rfmodel,x_test,y_test
+    return kmeans,x_train_scaled, x_dev_scaled, x_test_scaled
