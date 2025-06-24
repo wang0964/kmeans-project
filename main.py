@@ -1,11 +1,11 @@
+from src.features.build_features import clean_data
+from src.models.predict_model import evaluate_model
+from src.models.train_model import train_kmeans_model
+from src.data.make_dataset import load_and_preprocess_data
 import warnings
 warnings.filterwarnings("ignore")
 
 # Import data loading, preprocessing, training, and evaluation functions
-from src.data.make_dataset import load_and_preprocess_data
-from src.models.train_model import train_kmeans_model
-from src.models.predict_model import evaluate_model
-from src.features.build_features import clean_data
 
 # Path to the raw Diamonds dataset
 data_path = r'data/raw/DiamondsPrices.csv'

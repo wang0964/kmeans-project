@@ -1,6 +1,8 @@
 import pandas as pd
 
 # Function to load and preprocess the Diamonds dataset
+
+
 def load_and_preprocess_data(data_path):
     # Load the dataset from the given CSV file path
     df = pd.read_csv(data_path)

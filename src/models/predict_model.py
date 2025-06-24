@@ -2,6 +2,8 @@
 from sklearn.metrics import silhouette_score
 
 # Evaluate clustering model using Silhouette Score on train/dev/test sets
+
+
 def evaluate_model(kmodel, x_train_scaled, x_dev_scaled, x_test_scaled):
     # Fit the KMeans model and obtain cluster labels for the training set
     train_labels = kmodel.fit_predict(x_train_scaled)
@@ -17,5 +19,3 @@ def evaluate_model(kmodel, x_train_scaled, x_dev_scaled, x_test_scaled):
 
     # Return the evaluation metrics
     return train_score, dev_score, test_score
-
-
