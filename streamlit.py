@@ -72,6 +72,7 @@ with st.form("user_inputs"):
 
 # Handle the dummy variables to pass to the model
 if submitted:
+    # Convert categorical string inputs to numerical 0/1
     smoking = 1.0 if smoking=='Yes' else 0.0
     alcohol_drinking = 1.0 if alcohol_drinking=='Yes' else 0.0
     stroke = 1.0 if stroke=='Yes' else 0.0
@@ -82,6 +83,7 @@ if submitted:
     kidney_disease = 1.0 if kidney_disease=='Yes' else 0.0
     skin_cancer = 1 if skin_cancer=='Yes' else 0.0
     
+    # One-hot encoding for AgeCategory
     age_category_18_24 = 1.0 if age_category == '18-24' else 0.0
     age_category_25_29 = 1.0 if age_category == '25-29' else 0.0
     age_category_30_34 = 1.0 if age_category == '30-34' else 0.0 
@@ -96,7 +98,7 @@ if submitted:
     age_category_75_79 = 1.0 if age_category == '75-79' else 0.0
     age_category_80_or_older = 1.0 if age_category == '80 or older' else 0.0
     
-
+     # One-hot encoding for Race
     race_aia_native = 1.0 if race == 'American Indian/Alaskan Native' else 0.0
     race_asian = 1.0 if race == 'Asian' else 0.0
     race_black = 1.0 if race == 'Black' else 0.0
@@ -104,19 +106,21 @@ if submitted:
     race_other = 1.0 if race == 'Other' else 0.0
     race_white = 1.0 if race == 'White' else 0.0
 
+    # One-hot encoding for GenHealth
     gen_health_excellent = 1.0 if genHealth == 'Excellent' else 0.0
     gen_health_fair = 1.0 if genHealth == 'Fair' else 0.0
     gen_health_good = 1.0 if genHealth == 'Good' else 0.0
     gen_health_poor = 1.0 if genHealth == 'Poor' else 0.0 
     gen_health_very_good = 1.0 if genHealth == 'Very good' else 0.0
 
+    # One-hot encoding for Diabetic
     diabetic_no = 1.0 if diabetic == 'No' else 0.0
     diabetic_no_bd = 1.0 if diabetic == 'No, borderline diabetes' else 0.0
     diabetic_yes = 1.0 if diabetic == 'Yes' else 0.0
     diabetic_yes_dp = 1.0 if diabetic == 'Yes (during pregnancy)' else 0.0
 
 
-    # Prepare the input for prediction. This has to go in the same order as it was trained
+    # Construct the input in the same feature order used during training
     prediction_input = [[ 
                             bmi, smoking, alcohol_drinking, stroke, physical_health,
                             mental_health, diff_walking, sex, physical_activity, sleep_time,
@@ -146,4 +150,4 @@ st.write(
     """We used a machine learning (Random Forest) model to predict the probobility of heart disease, the features used in this prediction are ranked by relative
     importance below."""
 )
-# st.image("feature_importance.png")
+

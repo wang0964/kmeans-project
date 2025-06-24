@@ -1,4 +1,4 @@
-# Import accuracy score
+# Import recall_score,f1_score,precision_score and confusion_matrix
 from sklearn.metrics import recall_score,f1_score,precision_score,confusion_matrix as sk_confusion_matrix
 
 # # Function to predict and evaluate
