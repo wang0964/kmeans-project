@@ -76,7 +76,7 @@ with st.form("user_inputs"):
     submitted = st.form_submit_button("Start Analysis")
 
 
-# Handle the dummy variables to pass to the model
+# Handle the variables to pass to the model
 if submitted:
 
     cut_map = {'Fair':1, 'Good':2, 'Very Good':3, 'Premium':4, 'Ideal':5}
