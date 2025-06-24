@@ -108,9 +108,9 @@ if submitted:
     input_scaled = scaler.transform(prediction_input)
     new_prediction=kmodel.predict(input_scaled)
 
-    print(f'{prediction_input}\n')
-    print(f'{input_scaled}\n')
-    print(f'{new_prediction[0]}\n')
+    # print(f'{prediction_input}\n')
+    # print(f'{input_scaled}\n')
+    # print(f'{new_prediction[0]}\n')
 
 
     # Display result

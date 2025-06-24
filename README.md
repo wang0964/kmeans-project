@@ -1,103 +1,86 @@
+# diamond_cluster_analysis
 
-# heart_disease_predictor
+This app has been built with **Streamlit** and is deployed on **Streamlit Community Cloud**.
 
-This app has been built using **Streamlit** and deployed with **Streamlit Community Cloud**.
-
-[Visit the app here](https://assignment-regression.streamlit.app/)  
+[Visit the app here](https://assignment-kmeans.streamlit.app//)  
 *(No password required)*
 
-This application predicts whether someone is at risk of **heart disease** based on their health and lifestyle information. The model provides a simple user interface to help visualize risk using machine learning predictions.
+The application groups diamonds into meaningful clusters based on their physical and quality attributes. It offers a clean interface where users can enter (or upload) diamond parameters and instantly see which cluster the gem belongs to, thanks to an unsupervised **K-Means** model.
 
 ---
 
 ## Features
 
-- Easy-to-use form powered by Streamlit for collecting user health data
-- Real-time prediction of heart disease risk based on 2020 CDC dataset
-- Converts categorical variables to dummy variables before prediction
-- Deployed to Streamlit Cloud, accessible via any web browser
+- Intuitive Streamlit form for entering diamond attributes (carat, cut, color, clarity, proportions, dimensions)
+- Real-time clustering result displayed as soon as the user clicks **Start Analysis**
+- Consistent scaling with a pre-fitted `StandardScaler` to keep inputs in sync with the training data
+- Deployed on Streamlit Cloud—no local installation needed to try it
 
 ---
 
 ## Dataset
 
-The model was trained on the **Heart Disease – CDC 2020 Cleaned Dataset**. This dataset includes information about:
+The model was trained on the well-known **Diamonds Prices** dataset (originally from Kaggle). Key variables include:
 
-- BMI
-- Smoking and Alcohol Consumption
-- Stroke history
-- Physical and Mental Health status
-- Age Category and Sex
-- Sleep time and General Health
-- Diabetes status
-- Physical activity
-- Race and other lifestyle indicators
+- **carat** – weight of the diamond  
+- **cut** – quality of the cut (Ideal, Premium, …)  
+- **color** – color grading (D–J)  
+- **clarity** – clarity scale (IF, VVS1, …)  
+- **depth**, **table** – percentage proportions  
+- **x, y, z** – physical dimensions in millimetres  
 
 ---
 
 ## Technologies Used
 
-- **Streamlit** – To build the frontend web application
-- **Scikit-learn** – For training and evaluating the machine learning model
-- **Pandas** – For data manipulation and preprocessing
-- **Matplotlib** & **Seaborn** – For exploratory analysis and optional visualization
+- **Streamlit** – interactive web UI
+- **Scikit-learn** – data scaling (`StandardScaler`) and clustering (`KMeans`)
+- **Pandas / NumPy** – data handling
+- **Matplotlib / Seaborn** – optional exploratory charts
 
 ---
 
 ## Model
 
-The application uses a trained **Random Forest Classifier**. Key preprocessing steps include:
+The application relies on a trained **K-Means** model with the following pipeline:
 
-- Binary encoding (e.g., Yes/No → 1/0)
-- One-hot encoding for multi-class categorical variables such as `Race`, `AgeCategory`, `GenHealth`, `Diabetic`
-- Feature ordering matched with the trained model
+1. Map categorical features (`cut`, `color`, `clarity`) to integer codes  
+2. Select numeric feature set `[carat, cut, color, clarity, depth, table, x, y, z]`  
+3. Apply a `StandardScaler` (fit on training data)  
+4. Fit **K-Means** with **3 clusters** (`n_init=20`, `random_state=42`)  
 
----
-
-## Future Enhancements
-
-- Add SHAP-based explainability for individual predictions
-- Visual summary of input features before prediction
-- Compare results across different models (e.g., Logistic Regression, XGBoost)
-- Allow users to upload batch CSV files for bulk prediction
+Both the fitted scaler (`scaler.pkl`) and the K-Means model (`kmeans_model.pkl`) are stored in `/models` and loaded at runtime for consistent predictions.
 
 ---
 
-## Installation (for local deployment)
+## Installation (local run)
 
-To run the app locally, follow these steps:
+```bash
+# 1. Clone the repository
+git clone https://github.com/wang0964/kmeans-project.git
+cd kmeans-project
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/wang0964/regression_model.git
-   cd regression_model
-   ```
+# 2. (Optional) Create & activate virtual environment
+python -m venv env
+# Windows:
+env\Scripts\activate
+# macOS / Linux:
+source env/bin/activate
 
-2. **Create and activate a virtual environment**
-   ```bash
-   python -m venv env
-   source env/bin/activate        # On Windows: env\Scripts\activate
-   ```
+# 3. Install dependencies
+pip install -r requirements.txt
 
-3. **Install required packages**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the Streamlit application**
-   ```bash
-   streamlit run streamlit.py
-   ```
+# 4. Launch the Streamlit app
+streamlit run streamlit-app.py
+```
 
 ---
 
 ## Dependencies
 
-List of required Python libraries:
-
 ```txt
 streamlit==1.46.0
-pandas==2.1.4
+pandas==2.3.0
 scikit-learn==1.7.0
 matplotlib==3.8.0
 seaborn==0.12.2
@@ -105,5 +88,5 @@ seaborn==0.12.2
 
 ---
 
-#### Thank you for using the Heart Disease Predictor!  
-This project is used for CST2216 Individual Term Project.
+#### Thank you for using the Diamond Cluster Analysis app!  
+This project is submitted for **CST2216 Individual Term Project**.
