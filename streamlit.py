@@ -5,6 +5,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pickle
 import streamlit as st
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Set the page title and description
 st.title("Heart Disease Risk Predictor")
@@ -13,10 +16,17 @@ st.write("""
         """)
 
 # Load the pre-trained model
-rf_pickle = open(r'models/model.pkl', 'rb')
-rf_model = pickle.load(rf_pickle)
-rf_pickle.close()
-
+try:
+    rf_pickle = open(r'models/model.pkl', 'rb')
+    rf_model = pickle.load(rf_pickle)
+    rf_pickle.close()
+    logging.info("Model loaded successfully.")
+except FileNotFoundError:
+    logging.error("Model file not found!")
+    st.error("Model file is missing.")
+except Exception as e:
+    logging.exception("Unexpected error occurred while loading model.")
+    st.error("Something went wrong while loading the model.")
 
 # Prepare the form to collect user inputs
 with st.form("user_inputs"):
