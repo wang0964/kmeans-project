@@ -1,17 +1,15 @@
 import pandas as pd
 
-# Function to create dummy (one-hot encoded) variables from categorical columns
-def create_dummy_vars(df):
+# Function to preprocess and select relevant features from the dataset
+def clean_data(df):
 
-    # Perform one-hot encoding on specified categorical columns
-    # Each category will be transformed into a new binary column (0 or 1)
-    df2 = pd.get_dummies(df, columns=['AgeCategory','Race','GenHealth','Diabetic'], dtype='int')
+    # Save the raw input DataFrame to a processed CSV (before cleaning)
+    df.to_csv('data/processed/Processed_DiamondsPrices.csv', index=None)
 
-    # Save the processed DataFrame to a new CSV file (no index column)
-    df2.to_csv('data/processed/Processed_heart_2020_cleaned.csv', index=None)
+    # Select only the relevant numerical and categorical features
+    features = ['carat', 'cut', 'color', 'clarity', 'depth', 'table', 'x', 'y', 'z']
+    
+    # Keep only selected features and drop rows with missing values
+    df = df[features].dropna()
 
-    # Separate the features (X) and target (y)
-    x = df2.drop('HeartDisease', axis=1)  # Drop the target column to get features
-    y = df2['HeartDisease']               # Extract the target column
-
-    return x, y  # Return features and target as separate variables
+    return df  # Return the cleaned DataFrame
