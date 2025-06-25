@@ -66,7 +66,6 @@ plt.ylabel("Silhouette Score")
 plt.grid(True)
 
 # Dev
-plt.subplots_adjust(hspace=10) 
 plt.subplot(3, 2, 3)
 plt.plot(k_values, dev_wcss, marker='o')
 plt.title("Elbow Method - WCSS vs k (Dev set)")
@@ -82,7 +81,6 @@ plt.ylabel("Silhouette Score")
 plt.grid(True)
 
 # Test
-plt.subplots_adjust(hspace=10) 
 plt.subplot(3, 2, 5)
 plt.plot(k_values, test_wcss, marker='o')
 plt.title("Elbow Method - WCSS vs k (Test set)")
