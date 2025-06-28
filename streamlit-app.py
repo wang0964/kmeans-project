@@ -123,7 +123,7 @@ if submitted:
     st.write(diamond_dict[new_prediction[0]])
 
 st.write(
-    """We used an unsupervised machine learning model (KMeans clustering) to group 
+    """I used an unsupervised machine learning model (KMeans clustering) to group 
        diamonds based on their physical and quality features. The clusters represent 
        different diamond types with similar characteristics."""
 )
